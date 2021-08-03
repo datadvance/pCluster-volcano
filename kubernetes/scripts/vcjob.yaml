@@ -1,0 +1,17 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: job1
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  tasks:
+    - replicas: 1
+      name: python
+      template:
+        spec:
+          containers:
+            - command: ["python3", "-c", "import time; print('START'); time.sleep(20); print('OK')"]
+              image: python
+              name: python
+          restartPolicy: Never
